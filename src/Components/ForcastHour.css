@@ -1,0 +1,78 @@
+/** @format */
+
+.ForecastWrapper {
+	flex-shrink: 0;
+
+	padding: 10px;
+	margin: 0 5px;
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.2);
+	/* &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  @media ${device.tablet} {
+    flex-basis: 110px;
+  }
+  @media ${device.laptop} {
+    flex-basis: 125px;
+  }
+  @media ${device.laptopL} {
+    flex-basis: 140px;
+  } */
+}
+.WeatherIcon {
+	display: block;
+	height: 50px;
+	width: 50px;
+	margin: 0 auto;
+}
+
+.Text {
+	/* color: ${({ color }) => color || '#FFFFFF'};
+  display: block;
+  font-size: ${({ fontSize }) => fontSize || '12px'};
+  text-align: ${({ align }) => align || 'left'};
+  ${({ firstToUpperCase }) =>
+    firstToUpperCase &&
+    `
+  &:first-letter {
+    text-transform: uppercase;
+  } */
+	/* `}
+  @media ${device.tablet} {
+    font-size: ${({ fontSize }) => fontSize || '15px'};
+  }
+  @media ${device.laptop} {
+    font-size: ${({ fontSize }) => fontSize || '17px'};
+  } 
+  @media ${device.laptopL} {
+    font-size: ${({ fontSize }) => fontSize || '19px'};
+  } */
+}
+.SmallLabel {
+	/* color: ${({ color }) => color || '#FFFFFF'};
+  display: block;
+  font-weight: ${({ weight }) => weight || '600'};
+  font-size: ${({ fontSize }) => fontSize || '15px'};
+  text-align: ${({ align }) => align || 'left'};
+  padding: 5px 0;
+  ${({ firstToUpperCase }) =>
+    firstToUpperCase &&
+    `
+  &:first-letter {
+    text-transform: uppercase;
+  }
+  `}
+  @media ${device.tablet} {
+    font-size: ${({ fontSize }) => fontSize || '20px'};
+  }
+  @media ${device.laptop} {
+    font-size: ${({ fontSize }) => fontSize || '23px'};
+  } 
+  @media ${device.laptopL} {
+    font-size: ${({ fontSize }) => fontSize || '26px'};
+  } */
+}

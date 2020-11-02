@@ -1,0 +1,129 @@
+/** @format */
+
+.Results {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px 0;
+	opacity: 1;
+	position: relative;
+	top: 20px;
+}
+
+.LocationWrapper {
+	display: flex;
+	justify-content: left;
+	margin-top: 2vh;
+	margin-left: 5vh;
+}
+
+.WeatherIcon {
+	float: left;
+	font-size: 80px;
+	color: black;
+}
+/* 
+.Temperature {
+	display: block;
+	font-size: 50px;
+	font-weight: 400;
+	color: #ffffff;
+	/* @media ${device.tablet} {
+    font-size: 70px;
+  }
+  @media ${device.laptop} {
+    font-size: 90px;
+  }
+  @media ${device.laptopL} {
+    font-size: 110px;
+  } */
+
+.TemperatureWrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+.WeatherDetailsWrapper {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	padding: 10px 0;
+	margin: 20px 0;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	align-self: flex-start;
+}
+
+.WeatherDetail {
+	flex-basis: calc(100% / 3);
+	margin-bottom: 2vh;
+	background-color: white;
+	border-radius: 5px;
+	padding: 10px;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.ForecastWrapper {
+	flex-basis: 50%;
+	margin: 20px 20px 20px 20px;
+	overflow: hidden;
+}
+
+.Forecast {
+	position: relative;
+
+	margin-top: 20px;
+	padding-bottom: 20px;
+}
+
+.Wrapper {
+	background-color: whitesmoke;
+	border-radius: 4%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 80%;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.Wrapper2 {
+	display: flex;
+	justify-content: space-around;
+}
+@media only screen and (max-width: 600px) {
+	.Wrapper {
+		display: initial;
+	}
+	.Wrapper2 {
+		display: initial;
+	}
+}
+
+@media only screen and (min-width: 525px) {
+	.WeatherDetailsWrapper {
+		flex-basis: 2;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.WeatherIcon {
+		font-size: 100px;
+		justify-content: flex-end;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.Forecast {
+		order: 4;
+	}
+	.WeatherDetail {
+		padding: 20px 10px;
+	}
+	.WeatherIcon {
+		font-size: 120px;
+	}
+}
+@media only screen and (min-width: 1440px) {
+	.WeatherIcon {
+		font-size: 140px;
+	}
+}
