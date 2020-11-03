@@ -2,26 +2,64 @@
 
 import React from "react";
 import "./ForecastDay.css";
+import cloud from "../001-cloudy.png";
+import cloudy from "../001-cloudy.png";
+import sun from "../002-sun.png";
+import rain from "../003-rain.png";
+import snow from "../004-snowing.png";
+import thunderstorm from "../005-thunderstorm.png";
+import fog from "../006-fog.png";
 const ForecastDay = props => {
 	// Returns week of the day
 	const _getDayInfo = data => {
 		const daysOfWeek = [
-			"sunday",
-			"monday",
-			"tuesday",
-			"wednesday",
-			"thursday",
-			"friday",
-			"saturday",
+			"Sun",
+			"Mon",
+			"Tue",
+			"Wed",
+			"Thur",
+			"Fri",
+			"Sat",
 		];
+
 		return daysOfWeek[
-			new Date(data[0].dt * 1000).getDay()
+			new Date(data[0].dt * 1000 + 1).getDay()
 		];
 	};
 
 	// Fetches the icon using the icon code available in the forecast data.
-	const _getIcon = data =>
-		`https://openweathermap.org/img/w/${data[0].weather[0].icon}.png`;
+	const _getIcon = data => {
+		let weatherIcon = "";
+
+		if (
+			data[0].weather[0].main === "Thunderstorm"
+		) {
+			weatherIcon = thunderstorm;
+		} else if (
+			data[0].weather[0].main === "Drizzle"
+		) {
+			weatherIcon = cloudy;
+		} else if (
+			data[0].weather[0].main === "Rain"
+		) {
+			weatherIcon = rain;
+		} else if (
+			data[0].weather[0].main === "Snow"
+		) {
+			weatherIcon = snow;
+		} else if (
+			data[0].weather[0].main === "Clear"
+		) {
+			weatherIcon = sun;
+		} else if (
+			data[0].weather[0].main === "Clouds"
+		) {
+			weatherIcon = cloud;
+		} else {
+			weatherIcon = fog;
+		}
+		return weatherIcon;
+	};
 
 	// Gets the Minimum, Maximum and Avg Humidity temperatures of the day.
 	const _getInfo = (
@@ -41,23 +79,19 @@ const ForecastDay = props => {
 			max: Math.round(Math.max(...max)),
 		};
 
-		// // Gets the day's average humdity
-		// const avgHumdity = Math.round(
-		// 	humidity.reduce(
-		// 		(curr, next) => curr + next
-		// 	) / humidity.length
-		// );
+		const weather = _getIcon(data);
 
 		return (
 			<div>
 				<div className='min-max'>
-					<strong>{`${minMax.max}°C`}</strong> /{" "}
-					{`${minMax.min}°C`}
+					<strong>{`${minMax.max}°`}</strong>{" "}
+					{`${minMax.min}°`}
 				</div>
-				<img src={_getIcon(data)} />
-				{/* <div className='more-info'>
-					{`Avg. Humidity: ${avgHumdity}%`}
-				</div> */}
+
+				<img
+					className='WeatherPhotos'
+					src={weather}
+				/>
 			</div>
 		);
 	};
@@ -74,9 +108,13 @@ const ForecastDay = props => {
 			<div className='ForecastTiles'>
 				{forecastTiles.map((item, i) => (
 					<div
-						className='weather-info'
+						className={
+							props.show === i
+								? "selectedweather-info"
+								: "weather-info"
+						}
 						key={i}
-						onClick={() => props.change(item)}>
+						onClick={() => props.change(item, i)}>
 						<div className='PrimaryInfo'>
 							<div className='icon'>
 								{_getDayInfo(item)}
@@ -87,7 +125,7 @@ const ForecastDay = props => {
 						<div
 							className='detailed-info'
 							key={i}>
-							{item[0].weather[0].description}
+							{item[0].weather[0].main}
 						</div>
 					</div>
 				))}

@@ -76,3 +76,144 @@
     font-size: ${({ fontSize }) => fontSize || '26px'};
   } */
 }
+
+.card {
+	background: whitesmoke;
+	border: 0;
+	padding: 10px;
+	margin: 0 5px;
+	border-radius: 5px;
+
+	transform: translate(0%, 0%);
+	width: 300px;
+	height: 375px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+/* hide limit values on X axis */
+.card #canvas {
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-right: -30px;
+	width: 400px !important;
+}
+
+.card .about {
+	height: 185px;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.card .about h3,
+.card .about .lead {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 400;
+}
+
+.card .about h3 {
+	font-size: 24px;
+	color: black;
+}
+
+.card .about .lead {
+	color: black;
+}
+
+.card .info {
+	float: left;
+	padding: 10px 30px 10px 0;
+}
+
+.card .info p {
+	font-size: 11px;
+	color: black;
+	font-weight: 300;
+}
+
+.legends {
+	padding-top: 20px;
+	overflow: hidden;
+}
+
+.legend {
+	display: block;
+	width: 8px;
+	height: 8px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-radius: 50%;
+}
+
+.legend--this {
+	background-color: black;
+}
+
+.legend--prev {
+	background-color: black;
+}
+
+.axis {
+	position: absolute;
+	color: black;
+	z-index: 1;
+	text-transform: uppercase;
+	display: flex;
+	width: 100%;
+	bottom: 0;
+}
+
+.axis .tick {
+	flex: 1;
+	position: relative;
+	font-size: 11px;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	line-height: 20px;
+}
+
+.axis .tick::after {
+	content: "";
+	position: absolute;
+	display: block;
+	right: 0;
+	bottom: 0;
+	width: 1px;
+	height: 300px;
+	background: #99a8b2;
+}
+
+.axis .tick .value {
+	transform: translateY(-240px);
+	opacity: 0;
+	transition: all 0.3s;
+	position: absolute;
+	top: 20px;
+	left: 0;
+	color: black;
+	border-radius: 2px;
+	width: 100%;
+	line-height: 20px;
+}
+
+.axis .tick:hover .value.value--this {
+	transform: translateY(-160px);
+	display: block;
+	opacity: 0.4;
+}
+
+.value.value--this {
+	color: #fff;
+	font-weight: bold;
+}
+
+.day-number {
+	display: block;
+}
+
+.day-name {
+	display: block;
+	opacity: 0.4;
+}

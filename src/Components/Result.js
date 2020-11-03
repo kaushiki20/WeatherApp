@@ -1,19 +1,13 @@
 /** @format */
 
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, {
+	useEffect,
+	useState,
+} from "react";
 import ForecastDay from "./ForecastDay";
-import {
-	faCloud,
-	faBolt,
-	faCloudRain,
-	faCloudShowersHeavy,
-	faSnowflake,
-	faSun,
-	faSmog,
-} from "@fortawesome/free-solid-svg-icons";
 import "./Result.css";
 import ForecastHour from "./ForecastHour";
+import { faStethoscope } from "@fortawesome/free-solid-svg-icons";
 const Result = ({ weather, grouped }) => {
 	var curday = function (sp) {
 		let today = new Date();
@@ -30,6 +24,13 @@ const Result = ({ weather, grouped }) => {
 	const [newForecast, setnewForeCaset] = useState(
 		grouped[dates]
 	);
+	const [show, setShow] = useState(0);
+	useEffect(() => {
+		if (grouped) {
+			setnewForeCaset(grouped[dates]);
+			setShow(0);
+		}
+	}, [grouped]);
 	const {
 		city,
 		country,
@@ -47,41 +48,75 @@ const Result = ({ weather, grouped }) => {
 		pressure,
 	} = weather;
 
-	const handleChange = item => {
+	const handleChange = (item, index) => {
 		setnewForeCaset(item);
+
+		setShow(index);
 	};
 
 	let weatherIcon = null;
 
-	if (main === "Thunderstorm") {
+	if (
+		newForecast[0].weather[0].main ===
+		"Thunderstorm"
+	) {
 		weatherIcon = (
-			<FontAwesomeIcon icon={faBolt} />
-		);
-	} else if (main === "Drizzle") {
-		weatherIcon = (
-			<FontAwesomeIcon icon={faCloudRain} />
-		);
-	} else if (main === "Rain") {
-		weatherIcon = (
-			<FontAwesomeIcon
-				icon={faCloudShowersHeavy}
+			<img
+				className='WeatherPhoto'
+				src={require("./png/005-thunderstorm.png")}
 			/>
 		);
-	} else if (main === "Snow") {
+	} else if (
+		newForecast[0].weather[0].main === "Drizzle"
+	) {
 		weatherIcon = (
-			<FontAwesomeIcon icon={faSnowflake} />
+			<img
+				className='WeatherPhoto'
+				src={require("./png/003-rain.png")}
+			/>
 		);
-	} else if (main === "Clear") {
+	} else if (
+		newForecast[0].weather[0].main === "Rain"
+	) {
 		weatherIcon = (
-			<FontAwesomeIcon icon={faSun} />
+			<img
+				className='WeatherPhoto'
+				src={require("./png/003-rain.png")}
+			/>
 		);
-	} else if (main === "Clouds") {
+	} else if (
+		newForecast[0].weather[0].main === "Snow"
+	) {
 		weatherIcon = (
-			<FontAwesomeIcon icon={faCloud} />
+			<img
+				className='WeatherPhoto'
+				src={require("./png/004-snowing.png")}
+			/>
+		);
+	} else if (
+		newForecast[0].weather[0].main === "Clear"
+	) {
+		weatherIcon = (
+			<img
+				className='WeatherPhoto'
+				src={require("./png/002-sun.png")}
+			/>
+		);
+	} else if (
+		newForecast[0].weather[0].main === "Clouds"
+	) {
+		weatherIcon = (
+			<img
+				className='WeatherPhoto'
+				src={require("./png/007-cloud.png")}
+			/>
 		);
 	} else {
 		weatherIcon = (
-			<FontAwesomeIcon icon={faSmog} />
+			<img
+				className='WeatherPhoto'
+				src={require("./png/006-fog.png")}
+			/>
 		);
 	}
 
@@ -90,6 +125,7 @@ const Result = ({ weather, grouped }) => {
 			<div style={{ marginBottom: "3vh" }}>
 				<ForecastDay
 					grouped={grouped}
+					show={show}
 					change={handleChange}
 				/>
 			</div>
@@ -101,7 +137,10 @@ const Result = ({ weather, grouped }) => {
 								style={{
 									fontSize: "50px",
 								}}>
-								{Math.floor(temp)}&#176;
+								{Math.floor(
+									newForecast[0].main.temp
+								)}
+								°C
 							</h2>
 							<div className='WeatherIcon'>
 								{" "}
@@ -109,46 +148,44 @@ const Result = ({ weather, grouped }) => {
 							</div>
 						</div>
 					</div>
-
-					<div className='WeatherDetailsWrapper '>
-						<div className='WeatherDetail'>
-							<span
-								align='center'
-								style={{ marginTop: "3vh" }}
-								weight='400'>
-								Pressure
-							</span>
-							<h4 align='center'>
-								{pressure}hpa
-							</h4>
-						</div>
-						<div className='WeatherDetail'>
-							<span align='center'>Sunrise</span>
-							<h4 align='center' weight='400'>
-								{sunrise}AM
-							</h4>
-						</div>
-
-						<div className='WeatherDetail'>
-							<span align='center'>Humidity</span>
-							<h4 align='center' weight='400'>
-								{humidity}%
-							</h4>
-						</div>
-						<div className='WeatherDetail'>
-							<span align='center'>Sunset</span>
-							<h4 align='center' weight='400'>
-								{sunset}PM
-							</h4>
-						</div>
-					</div>
 				</div>
 				<div className='ForecastWrapper'>
-					<h3 weight='400'>Forecast</h3>
 					<div className='Forecast'>
 						<ForecastHour
 							forecast={newForecast}
 						/>
+					</div>
+				</div>
+				<div className='WeatherDetailsWrapper '>
+					<div className='WeatherDetail'>
+						<span align='center'>Sunset</span>
+						<h4 align='center' weight='400'>
+							{sunset}PM
+						</h4>
+					</div>
+					<div className='WeatherDetail'>
+						<span align='center'>Sunrise</span>
+						<h4 align='center' weight='400'>
+							{sunrise}AM
+						</h4>
+					</div>
+				</div>
+				<div className='WeatherDetailsWrapper2 '>
+					<div className='WeatherDetail'>
+						<span
+							align='center'
+							style={{ marginTop: "3vh" }}
+							weight='400'>
+							Pressure
+						</span>
+						<h4 align='center'>{pressure}hpa</h4>
+					</div>
+
+					<div className='WeatherDetail'>
+						<span align='center'>Humidity</span>
+						<h4 align='center' weight='400'>
+							{humidity}%
+						</h4>
 					</div>
 				</div>
 			</div>

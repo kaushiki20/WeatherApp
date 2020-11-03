@@ -135,7 +135,7 @@ function App() {
 					},
 					{}
 				);
-
+				console.log(weatherInfo);
 				setGrouped(groupedData);
 				setWeatherInformation(weatherInfo);
 				setError(false);

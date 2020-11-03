@@ -12,6 +12,7 @@ const ForecastHour = props => {
 			? i.dt_txt.slice(11, 13) * 1 + "PM"
 			: i.dt_txt.slice(11, 13) * 1 + "AM";
 	});
+
 	const data = {
 		labels: hour.slice(0, 6),
 		datasets: [
@@ -19,61 +20,100 @@ const ForecastHour = props => {
 				label: "temperature",
 				fill: false,
 				lineTension: 0.1,
-				//backgroundColor: "rgba(75,192,192,0.4)",
-				borderColor: "rgba(75,192,192,1)",
-				borderCapStyle: "butt",
-				borderDash: [],
-				borderDashOffset: 0.0,
-				borderJoinStyle: "miter",
-				pointBorderColor: "rgba(75,192,192,1)",
-				pointBackgroundColor: "#fff",
-				pointBorderWidth: 1,
-				pointHoverRadius: 5,
-				pointHoverBackgroundColor:
-					"rgba(75,192,192,1)",
-				pointHoverBorderColor:
-					"rgba(220,220,220,1)",
-				pointHoverBorderWidth: 2,
-				pointRadius: 1,
-				pointHitRadius: 10,
+
+				borderColor: "#01c5c4",
+				borderWidth: 2,
+				pointBackgroundColor: "transparent",
+				pointBorderColor: "#01c5c4",
+				pointBorderWidth: 3,
+				pointHoverBorderColor: "#01c5c4",
+				pointHoverBorderWidth: 10,
+				lineTension: 0,
 				data: temp.slice(0, 6),
 			},
 		],
 	};
 
 	return (
-		<div className='ForecastWrapper'>
-			<Line
-				data={data}
-				options={{
-					title: {
-						display: false,
-						text:
-							"Average temperature every hour",
-						fontSize: 20,
-					},
-					legend: {
-						display: true,
-						position: "right",
-					},
-					scales: {
-						xAxes: [
-							{
-								gridLines: {
-									display: false,
+		<div class='card'>
+			<div class='about'></div>
+			<div id='canvas'>
+				<Line
+					data={data}
+					options={{
+						responsive: true,
+						title: {
+							display: false,
+							text:
+								"Average temperature every hour",
+							fontSize: 20,
+						},
+						elements: {
+							point: {
+								radius: 6,
+								hitRadius: 6,
+								hoverRadius: 6,
+							},
+						},
+						legend: {
+							display: true,
+							position: "right",
+						},
+						tooltips: {
+							backgroundColor: "black",
+							displayColors: false,
+
+							bodyFontSize: 14,
+							callbacks: {
+								label: function (
+									tooltipItems,
+									data
+								) {
+									return (
+										tooltipItems.yLabel + "°C"
+									);
 								},
 							},
-						],
-						yAxes: [
-							{
-								gridLines: {
+						},
+						scales: {
+							xAxes: [
+								{
 									display: false,
 								},
-							},
-						],
-					},
-				}}
-			/>
+							],
+							yAxes: [
+								{
+									display: false,
+									ticks: {
+										beginAtZero: true,
+									},
+								},
+							],
+						},
+					}}
+				/>
+			</div>
+			<div class='axis'>
+				{props.forecast.slice(0, 6).map(i => {
+					return (
+						<div class='tick'>
+							<span class='day-number'>
+								{Math.floor(i.main.temp)}
+							</span>
+							<span class='day-name'>
+								{i.dt_txt.slice(11, 13) * 1 > 12
+									? i.dt_txt.slice(11, 13) * 1 +
+									  "PM"
+									: i.dt_txt.slice(11, 13) * 1 +
+									  "AM"}
+							</span>
+							<span class='value value--this'>
+								{i.main.temp}°C
+							</span>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 };

@@ -9,6 +9,8 @@
 .ForecastTiles {
 	display: flex;
 	justify-content: space-around;
+	max-width: 100%;
+	overflow: hidden;
 	padding: 20px;
 	margin: 0 5px;
 	border-radius: 5px;
@@ -24,11 +26,19 @@
 .icon {
 	font-size: 20px;
 }
+.WeatherPhotos {
+}
+.selectedweather-info {
+	border: 1px solid black;
+	padding: inherit;
+}
 
 @media only screen and (max-width: 600px) {
-	.ForecastTiles {
-	}
 	.weather-info {
 		margin: 0.5vh;
+	}
+	.WeatherPhotos {
+		width: 40px;
+		height: 40px;
 	}
 }
